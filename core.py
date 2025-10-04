@@ -66,30 +66,24 @@ class Human(ABC):
         return self._agility + random.randint(1, 10)
 
     def take_damage(self, damage: int):
-        """Уменьшает HP на указанное количество damage"""
         self._hp = max(0, self._hp - damage)
 
     def heal(self, amount: int):
-        """Восстанавливает HP"""
         self._hp = min(self._max_hp, self._hp + amount)
 
     def restore_mp(self, amount: int):
-        """Восстанавливает MP"""
         self._mp = min(self._max_mp, self._mp + amount)
 
     def add_effect(self, effect: Effect):
-        """Добавляет эффект к персонажу"""
         self._effects.append(effect)
 
     def process_effects(self):
-        """Обрабатывает все эффекты в начале хода"""
         new_effects = []
         for effect in self._effects:
             effect.duration -= 1
             if effect.duration > 0:
                 new_effects.append(effect)
 
-            # Применяем эффекты
             if effect.effect_type == 'dot':
                 self.take_damage(effect.value)
                 print(f"{self.name} получает {effect.value} урона от {effect.name}")
@@ -101,7 +95,6 @@ class Human(ABC):
 
     @abstractmethod
     def attack(self, target: 'Human'):
-        """Абстрактный метод атаки"""
         pass
 
     def __str__(self):
