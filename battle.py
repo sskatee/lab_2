@@ -2,7 +2,7 @@ import random
 import json
 from typing import List, Dict
 from core import Human
-from characters import Warrior, Mage, Healer
+from characters import Horoshist, Otlichnik, Starosta
 
 
 class BossStrategy:
@@ -125,7 +125,7 @@ class Battle:
         print(f"\n--- Ход {character.name} ---")
         character.process_effects()
 
-        if isinstance(character, Healer):
+        if isinstance(character, Starosta):
             wounded = [m for m in self.party if m.hp < m.max_hp * 0.7 and m.is_alive]
             if wounded and character.mp >= 15:
                 target = min(wounded, key=lambda x: x.hp)
@@ -174,18 +174,18 @@ class Battle:
 
     @classmethod
     def load_from_file(cls, filename: str, seed: int = None):
-        """Загружает состояние боя из JSON файла"""
+        """Загружает состояние боя из JSON-файла"""
         with open(filename, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
         party = []
         for char_data in data['party']:
-            if char_data['class'] == 'Warrior':
-                char = Warrior(char_data['name'], char_data['level'])
-            elif char_data['class'] == 'Mage':
-                char = Mage(char_data['name'], char_data['level'])
-            elif char_data['class'] == 'Healer':
-                char = Healer(char_data['name'], char_data['level'])
+            if char_data['class'] == 'Horoshist':
+                char = Horoshist(char_data['name'], char_data['level'])
+            elif char_data['class'] == 'Otlichnik':
+                char = Otlichnik(char_data['name'], char_data['level'])
+            elif char_data['class'] == 'Starosta':
+                char = Starosta(char_data['name'], char_data['level'])
               
             char._hp = char_data['hp']
             char._max_hp = char_data['max_hp']

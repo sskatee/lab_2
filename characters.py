@@ -3,7 +3,7 @@ from skills import Skill
 import random
 
 
-class Warrior(Human):
+class Horoshist(Human):
     def __init__(self, name: str, level: int = 1):
         super().__init__(name, level)
         self._max_hp = 60 + level * 20
@@ -31,7 +31,7 @@ class Warrior(Human):
         target.take_damage(base_damage)
 
 
-class Mage(Human):
+class Otlichnik(Human):
     def __init__(self, name: str, level: int = 1):
         super().__init__(name, level)
         self._max_hp = 90 + level * 10
@@ -54,7 +54,7 @@ class Mage(Human):
         target.take_damage(base_damage)
 
 
-class Healer(Human):
+class Starosta(Human):
     def __init__(self, name: str, level: int = 1):
         super().__init__(name, level)
         self._max_hp = 80 + level * 10

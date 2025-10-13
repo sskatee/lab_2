@@ -1,13 +1,13 @@
-from characters import Warrior, Mage, Healer
+from characters import Horoshist, Otlichnik, Starosta
 from battle import Battle, Boss
 import random
 
 
 def create_party():
     party = [
-        Warrior("Хорошист"),
-        Mage("Отличник"),
-        Healer("Староста")
+        Horoshist("Хорошист"),
+        Otlichnik("Отличник"),
+        Starosta("Староста")
     ]
     return party
 

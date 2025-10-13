@@ -40,5 +40,5 @@ class Inventory:
 
 
 # Предопределенные предметы
-HEALTH_POTION = Item("100% посещаемость", "heal", 50, "Восстанавливает 50 HP")
-MANA_POTION = Item("Конспект", "mp_restore", 30, "Восстанавливает 30 MP")
+ATTENDANCE= Item("100% посещаемость", "heal", 50, "Восстанавливает 50 HP")
+NOTES = Item("Конспект", "mp_restore", 30, "Восстанавливает 30 MP")
