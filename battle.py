@@ -6,7 +6,6 @@ from characters import Warrior, Mage, Healer
 
 
 class BossStrategy:
-    """Базовый класс стратегии босса"""
 
     def execute(self, boss: 'Boss', targets: List[Human]):
         pass
@@ -23,7 +22,7 @@ class AggressiveStrategy(BossStrategy):
 class AOEStrategy(BossStrategy):
     def execute(self, boss: 'Boss', targets: List[Human]):
         alive_targets = [t for t in targets if t.is_alive]
-        print(f"{boss.name} использует массовую атаку!")
+        print(f"{boss.name} дает очень сложные задания!")
         for target in alive_targets:
             damage = boss._strength // 2 + random.randint(5, 15)
             target.take_damage(damage)
@@ -37,13 +36,13 @@ class DebuffStrategy(BossStrategy):
         if alive_targets:
             target = random.choice(alive_targets)
             target.add_effect(WEAKNESS)
-            print(f"{boss.name} накладывает слабость на {target.name}!")
+            print(f"{boss.name} выгоняет с пары {target.name}!")
 
 
 class Boss(Human):
     def __init__(self, name: str, level: int = 1):
         super().__init__(name, level)
-        self._max_hp = 400 + level * 50
+        self._max_hp = 500 + level * 50
         self._hp = self._max_hp
         self._max_mp = 200 + level * 30
         self._mp = self._max_mp
@@ -70,7 +69,7 @@ class Boss(Human):
 
     def _choose_strategy(self):
         if self.phase == 1:
-            self._current_strategy = 'aggressive'
+            self._current_strategy = random.choice(['aggressive','aoe','debuff'])
         elif self.phase == 2:
             self._current_strategy = random.choice(['aggressive', 'aoe'])
         else:
@@ -97,7 +96,7 @@ class Battle:
             random.seed(seed)
 
     def determine_turn_order(self):
-        """Определяет порядок ходов на основе инициативы"""
+        """Ходят по инициативе"""
         all_combatants = self.party + [self.boss]
         self.turn_order = sorted(
             all_combatants,
@@ -111,7 +110,7 @@ class Battle:
         boss_alive = self.boss.is_alive
 
         if not party_alive:
-            print("Босс победил!")
+            print("Препод победил! Вы все отчислены!")
             return True
         elif not boss_alive:
             print("Пати победила!")
@@ -130,7 +129,7 @@ class Battle:
             wounded = [m for m in self.party if m.hp < m.max_hp * 0.7 and m.is_alive]
             if wounded and character.mp >= 15:
                 target = min(wounded, key=lambda x: x.hp)
-                print(f"{character.name} лечит {target.name}!")
+                print(f"{character.name} подсказывает {target.name}!")
                 heal_amount = character._intelligence + random.randint(10, 20)
                 target.heal(heal_amount)
                 character._mp -= 15

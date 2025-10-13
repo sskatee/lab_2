@@ -4,17 +4,16 @@ import random
 
 
 def create_party():
-    """Создает пати персонажей"""
     party = [
-        Warrior("Воин"),
-        Mage("Маг"),
-        Healer("Жрец")
+        Warrior("Хорошист"),
+        Mage("Отличник"),
+        Healer("Староста")
     ]
     return party
 
 
 def main():
-    print("=== Пати против Босса ===")
+    print("= Адская сессия =")
     print("1. Начать новую игру")
     print("2. Загрузить игру")
 
@@ -29,7 +28,7 @@ def main():
         level = int(difficulty) if difficulty in ['1', '2', '3'] else 2
 
         party = create_party()
-        boss = Boss("Дракон", level)
+        boss = Boss("Злой препод", level)
 
         battle = Battle(party, boss)
 
